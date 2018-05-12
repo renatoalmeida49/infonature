@@ -6,6 +6,12 @@
 	<title>InfoNature</title>
 </head>
 <body>
+	<?php
+		if(isset($_SESSION['msg'])){
+			echo $_SESSION['msg'];
+			unset($_SESSION['msg']);
+		}
+	?>
 	<header>
 		<div class="container">
 			<div class="simbol">

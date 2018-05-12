@@ -115,3 +115,10 @@ input {
 	margin: 20px;
 }
 
+/* Consulte.php */
+
+#map {
+	width: 100%;
+	height: 600px;
+	background-color: grey;
+}
