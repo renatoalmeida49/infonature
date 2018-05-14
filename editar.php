@@ -1,14 +1,16 @@
 <?php
 session_start();
-?>
+require ("conexao.php");
+$id = $_GET['id'];
 
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<link rel="icon" type="imagem/png" href="assets/images/leaf.png" />
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
-	<title>Registre</title>
+	<title>Editar denúncia</title>
 </head>
 <body>
 	<header>
@@ -25,7 +27,7 @@ session_start();
 	<section class="sectionRegistre">
 		<div class="container column">
 			<div class="title">
-				Registre sua denúncia:<br>
+				Editar denúncia:<br>
 			</div>
 
 			<div class="form">
@@ -38,19 +40,23 @@ session_start();
 			</div>
 
 			<div class="form">
-				<form method="post" action="salva.php" enctype="multipart/form-data"s>
-					<br/><label>Nome da rua:</label> <input type="text" name="nome"><br/>
-					<br/><label>Número:</label> <input type="number" name="numero"><br/>
-					<br/><label>CEP:</label> <input type="number" name="cep"><br/>
-					<br/><label>Bairro:</label> <input type="text" name="bairro"><br/>
-					<br/><label>Cidade:</label> <input type="text" name="cidade"><br/>
-					<br/><label>Estado:</label> <input type="text" name="estado"><br/>
+				<?php
+					$sql = "SELECT * FROM denuncias WHERE id=$id";
+					$resultSet = mysqli_query($conn, $sql);
+					$dado = mysqli_fetch_assoc($resultSet);
+				?>
+				<form method="post" action="atualiza.php?id=<?php echo $_GET['id'] ?>" enctype="multipart/form-data"s>
+					<br/><label>Nome da rua:</label> <input type="text" name="nome" value="<?php echo $dado['nomeRua'] ?>"><br/>
+					<br/><label>Número:</label> <input type="number" name="numero" value="<?php echo $dado['numero'] ?>"><br/>
+					<br/><label>CEP:</label> <input type="number" name="cep" value="<?php echo $dado['cep'] ?>"><br/>
+					<br/><label>Bairro:</label> <input type="text" name="bairro" value="<?php echo $dado['bairro'] ?>"><br/>
+					<br/><label>Cidade:</label> <input type="text" name="cidade" value="<?php echo $dado['cidade'] ?>"><br/>
+					<br/><label>Estado:</label> <input type="text" name="estado" value="<?php echo $dado['estado'] ?>"><br/>
 					<br/><label>Foto:</label> <input type="file" name="foto"><br/>
-					<br/><label>Descrição:</label> <input type="text" name="descricao"><br/>
+					<br/><label>Descrição:</label> <input type="text" name="descricao" value="<?php echo $dado['descricao'] ?>"><br/>
 					<br/><label>Localização no mapa:</label><br/>
-					<br/><label>Latitude:</label> <input type="text" name="lat"><br/>
-					<br/><label>Longitude:</label> <input type="text" name="lng"><br/>
-					
+					<br/><label>Latitude:</label> <input type="text" name="lat" value="<?php echo $dado['lat'] ?>"><br/>
+					<br/><label>Longitude:</label> <input type="text" name="lng" value="<?php echo $dado['lng'] ?>"><br/>
 
 					<div class="footerform">
 						<div class="infoSalve">
@@ -61,7 +67,7 @@ session_start();
 
 						<div>
 
-							<br/><a href="index.php"><div class="button">Voltar</div></a>
+							<br/><a href="consulte.php"><div class="button">Voltar</div></a>
 						</div>
 					</div>
 					
@@ -76,3 +82,4 @@ session_start();
 
 </body>
 </html>
+

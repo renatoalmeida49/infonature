@@ -2,6 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<link rel="icon" type="imagem/png" href="assets/images/leaf.png" />
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 	<title>InfoNature</title>
 </head>
@@ -14,11 +15,11 @@
 	?>
 	<header>
 		<div class="container">
-			<div class="simbol">
+			<a href="index.php"><div class="simbol">
 				<img src="assets/images/leaf.png" width="150px" height="150px">
-			</div>
+			</div></a>
 			<div class="name">
-				InfoNature
+				<a href="index.php">InfoNature</a>
 			</div>
 		</div>
 	</header>
@@ -41,8 +42,12 @@
 	</section>
 
 
-	<footer>
-		
+	<footer class="footerIndex">
+		<div class="container">
+			<div class="info">
+				<a class="linkIndex" href="https://github.com/renatoalmeida49">Created by: Renato Novaes - Versão 1.0</a>
+			</div>
+		</div>
 	</footer>
 </body>
 </html>

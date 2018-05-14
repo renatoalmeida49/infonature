@@ -25,9 +25,9 @@ while ($row_markers = mysqli_fetch_assoc($resultado_markers)){
   echo '<marker ';
   echo 'nomeRua="' . parseToXML($row_markers['nomeRua']) . '" ';
   echo 'numero="' . parseToXML($row_markers['numero']) . '" ';
-  echo 'cep="' . parseToXML($row_markers['cep']) . '" ';
-  echo 'bairro="' . parseToXML($row_markers['bairro']) . '" ';
-  echo 'cidade="' . parseToXML($row_markers['cidade']) . '" ';
+  //echo 'cep="' . parseToXML($row_markers['cep']) . '" ';
+  //echo 'bairro="' . parseToXML($row_markers['bairro']) . '" ';
+  //echo 'cidade="' . parseToXML($row_markers['cidade']) . '" ';
   echo 'estado="' . parseToXML($row_markers['estado']) . '" ';
   echo 'lat="' . $row_markers['lat'] . '" ';
   echo 'lng="' . $row_markers['lng'] . '" ';

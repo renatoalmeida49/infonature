@@ -39,13 +39,13 @@ header {
 
 h1 {
 	color: white;
-	text-shadow: 0px 2px 0px #555;
+	text-shadow: 0px 3px 0px #555;
 	font-size: 70px;
 }
 
 h2 {
 	color: white;
-	text-shadow: 0px 2px 0px #555;
+	text-shadow: 0px 3px 0px #555;
 	font-size: 25px;
 }
 
@@ -71,8 +71,27 @@ h2 {
 	width: 160px;
 }
 
+a:visited {
+	color: black;
+}
+
 a {
+	color: black;
 	text-decoration: none;
+}
+
+.footerIndex {
+	display: flex;
+	justify-content: center;
+	font-size: 20px;
+}
+
+.info{
+	margin: 10px;
+}
+
+ a .linkIndex {
+	color: #848484;
 }
 
 /* Registre.php */
@@ -102,9 +121,17 @@ input {
 
 .footerform {
 	margin-top: 25px;
+	width: 550px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.infoSalve {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 }
 
 .title {
@@ -121,4 +148,40 @@ input {
 	width: 100%;
 	height: 600px;
 	background-color: grey;
+}
+
+.footerConsulte {
+	display: flex;
+	justify-content: center;
+}
+
+.sectionTable {
+	display: flex;
+	justify-content: center;
+}
+
+.tabelaResult {
+	width: 100%;
+}
+
+.buttonMini {
+	color: white;
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: green;
+	height: 30px;
+	width: 60px;
+	margin: 5px;
+}
+
+td {
+	padding: 5px;
+}
+
+/*editar.php*/
+
+.oculto {
+	display: none;
 }
