@@ -6,7 +6,7 @@ session_start();
 <html>
 <head>
 	<meta charset="utf-8">
-	<link rel="icon" type="imagem/png" href="assets/images/leaf.png" />
+	<link rel="icon" type="images/png" href="assets/images/leaf.png" />
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 	<title>Registre</title>
 </head>
@@ -55,7 +55,7 @@ session_start();
 					<div class="footerform">
 						<div class="infoSalve">
 							Para coletar a latitude e longitude selecione um local no mapa e em seguida clique o botão direito do mouse. Então selecione a opção "O que há aqui?". Surgirá uma janela com informações. Os dois valores no canto inferior referem-se a latitude e longitude respectivamente.<br/>
-							<br/><a href="https://maps.google.com" target="blank"><div class="button">Ver mapa</div></a><br/>
+							<br/><a href="https://maps.google.com" target="_blank"><div class="button">Ver mapa</div></a><br/>
 							<br/><input class="salvar" type="submit" value="Salvar"><br/>
 						</div>
 

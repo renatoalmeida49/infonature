@@ -45,7 +45,7 @@
 	<footer class="footerIndex">
 		<div class="container">
 			<div class="info">
-				<a class="linkIndex" href="https://github.com/renatoalmeida49">Created by: Renato Novaes - Versão 1.0</a>
+				<a href="https://github.com/renatoalmeida49">Created by: Renato Novaes - Versão 1.0</a>
 			</div>
 		</div>
 	</footer>
