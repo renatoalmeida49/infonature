@@ -29,10 +29,10 @@
 			<div><h1>Preservar é preciso</h1></div>
 
 			<div class="bannerRow">
-				<a href="registre.php"><div class="button">
+				<a href="views/registrarDenuncia.php"><div class="button">
 					Registre
 				</div></a>
-				<a href="consulte.php"><div class="button">
+				<a href="views/consultarDenuncias.php"><div class="button">
 					Consulte
 				</div></a>
 			</div>

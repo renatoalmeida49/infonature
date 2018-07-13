@@ -1,5 +1,10 @@
 <?php
-require_once 'config/Database.php';
+//require_once 'config/Database.php';
+
+$dsn = "mysql:dbname=infonature;host=localhost";
+$dbuser = "root";
+$dbpass = "";
+$connection = new PDO($dsn, $dbuser, $dbpass);
 
 function parseToXML($htmlStr){
 	$xmlStr=str_replace('<','&lt;',$htmlStr);
@@ -14,9 +19,9 @@ function parseToXML($htmlStr){
 
 $sql = "SELECT * FROM denuncias";
 
-$db = new Database();
+//$db = new Database();
 
-$stmt = $db->getConnection()->query($sql);
+$stmt = $connection->query($sql);
 
 
 //$result_markers = "SELECT * FROM denuncias";
