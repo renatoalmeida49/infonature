@@ -1,108 +1,96 @@
 <?php
-class Denuncia {
-	private $id;
-	private $nomeRua;
-	private $numero;
-	private $cep;
-	private $bairro;
-	private $cidade;
-	private $estado;
-	private $foto;
-	private $lat;
-	private $lng;
-	private $descricao;
+class Denuncia extends model {
 
-	public function __construct() {
+    public function adicionar($nomeRua, $numero, $cep, $bairro, $cidade, $estado, $lat, $lng, $descricao) {
+        try {
+            $sql = "INSERT INTO denuncias(nomeRua, numero, cep, bairro, cidade, estado, lat, lng, descricao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-	}
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(1, $nomeRua);
+            $stmt->bindParam(2, $numero);
+            $stmt->bindParam(3, $cep);
+            $stmt->bindParam(4, $bairro);
+            $stmt->bindParam(5, $cidade);
+            $stmt->bindParam(6, $estado);
+            $stmt->bindParam(7, $lat);
+            $stmt->bindParam(8, $lng);
+            $stmt->bindParam(9, $descricao);
+
+            $query = $stmt->execute();
+
+            return true;
+        } catch (Exception $e) {
+            echo 'Erro ao adicionar denuncia. '.$e->getMessage();
+            return false;
+        }
+    }
+
+    public function excluir($id) {
         
-    public function getId() {
-        return $this->id;
+        $sql = "DELETE from denuncias where id=?";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(1, $id);
+
+        $query = $stmt->execute();
+
+        return true;
     }
 
-    public function getNomeRua() {
-        return $this->nomeRua;
+    public function editar($nomeRua, $numero, $cep, $bairro, $cidade, $estado, $lat, $lng, $descricao, $id) {
+        try {
+            $sql = "UPDATE denuncias SET nomeRua=?, numero=?, cep=?, bairro=?, cidade=?, estado=?, lat=?, lng=?, descricao=? WHERE id=?";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(1, $nomeRua);
+            $stmt->bindParam(2, $numero);
+            $stmt->bindParam(3, $cep);
+            $stmt->bindParam(4, $bairro);
+            $stmt->bindParam(5, $cidade);
+            $stmt->bindParam(6, $estado);
+            $stmt->bindParam(7, $lat);
+            $stmt->bindParam(8, $lng);
+            $stmt->bindParam(9, $descricao);
+            $stmt->bindParam(10, $id);
+            $query = $stmt->execute();
+
+            return true;
+        } catch (Exception $e) {
+            echo 'Erro ao editar denúncia. '.$e->getMessage();
+            return false;
+        }
     }
 
-    public function getNumero() {
-        return $this->numero;
-    }
+    public function getAll() {
+        $array = array();
 
-    public function getCep() {
-        return $this->cep;
-    }
+        $sql = "SELECT * FROM denuncias";
+        $stmt = $this->db->query($sql);
 
-    public function getBairro() {
-        return $this->bairro;
-    }
+        $stmt->execute();
 
-    public function getCidade() {
-        return $this->cidade;
-    }
+        if ($stmt->rowCount() > 0) {
+            $array = $stmt->fetchAll();
+        }
 
-    public function getEstado() {
-        return $this->estado;
-    }
-
-    public function getFoto() {
-        return $this->foto;
-    }
-
-    public function getLat() {
-        return $this->lat;
-    }
-
-    public function getLng() {
-        return $this->lng;
-    }
-
-    public function getDescricao() {
-        return $this->descricao;
-    }
-
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    public function setNomeRua($nomeRua) {
-        $this->nomeRua = $nomeRua;
-    }
-
-    public function setNumero($numero) {
-        $this->numero = $numero;
-    }
-
-    public function setCep($cep) {
-        $this->cep = $cep;
-    }
-
-    public function setBairro($bairro) {
-        $this->bairro = $bairro;
-    }
-
-    public function setCidade($cidade) {
-        $this->cidade = $cidade;
-    }
-
-    public function setEstado($estado) {
-        $this->estado = $estado;
-    }
-
-    public function setFoto($foto) {
-        $this->foto = $foto;
-    }
-
-    public function setLat($lat) {
-        $this->lat = $lat;
-    }
-
-    public function setLng($lng) {
-        $this->lng = $lng;
-    }
-
-    public function setDescricao($descricao) {
-        $this->descricao = $descricao;
+        return $array;
     }
 	
+    public function getDenunciaById($id) {
+        $array = array();
+
+        $sql = "SELECT * FROM denuncias WHERE id=?";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(1, $id);
+
+        $stmt->execute();
+
+        if($stmt->rowCount() > 0) {
+            $array = $stmt->fetch();
+        }
+
+        return $array;
+    }
 }
 ?>

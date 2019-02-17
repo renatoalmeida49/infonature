@@ -1,85 +1,87 @@
 <?php
-session_start();
-
-require_once '../models/Denuncia.php';
-require_once '../models/DenunciaDAO.php';
-require_once '../config/Database.php';
-
-switch ($_POST['denunciaControl']) {
-	case "Adicionar":
-		adicionar();
-		break;
-	case "Editar":
-		editar();
-		break;
-	case "Excluir":
-		excluir();
-		break;
-	default:
-		header("Location: ../index.php");
-}
-
-function adicionar() {
-	$db = new Database();
-	$dao = new DenunciaDAO($db);
-
-	$denuncia = new Denuncia();
-
-	$denuncia->setNomeRua($_POST['nomeRua']);
-	$denuncia->setNumero($_POST['numero']);
-	$denuncia->setCep($_POST['cep']);
-	$denuncia->setBairro($_POST['bairro']);
-	$denuncia->setCidade($_POST['cidade']);
-	$denuncia->setEstado($_POST['estado']);
-	$denuncia->setLat($_POST['lat']);
-	$denuncia->setLng($_POST['lng']);
-	$denuncia->setDescricao($_POST['descricao']);
-
-	if ($dao->adicionar($denuncia)) {
-		$_SESSION['msg'] = "Cadastro efetuado.";
-		header("Location: ../views/registrarDenuncia.php");
-	} else {
-		echo 'Erro ao adicionar denúncia';
+class denunciaController extends controller {
+	public function index() {
+		echo "denunciaController index";
 	}
-}
 
-function editar() {
-	$db = new Database();
-	$dao = new DenunciaDAO($db);
+	public function registrarDenuncia() {
+		$dados = array();
 
-	$denuncia = new Denuncia();
+		$denuncia = new Denuncia();
 
-	$denuncia->setId($_POST['id']);
-	$denuncia->setNomeRua($_POST['nomeRua']);
-	$denuncia->setNumero($_POST['numero']);
-	$denuncia->setCep($_POST['cep']);
-	$denuncia->setBairro($_POST['bairro']);
-	$denuncia->setCidade($_POST['cidade']);
-	$denuncia->setEstado($_POST['estado']);
-	$denuncia->setLat($_POST['lat']);
-	$denuncia->setLng($_POST['lng']);
-	$denuncia->setDescricao($_POST['descricao']);
+		if (isset($_POST['nomeRua']) && !empty($_POST['nomeRua'])) {
+			$nomeRua = addslashes($_POST['nomeRua']);
+			$numero = addslashes($_POST['numero']);
+			$cep = addslashes($_POST['cep']);
+			$bairro = addslashes($_POST['bairro']);
+			$cidade = addslashes($_POST['cidade']);
+			$estado = addslashes($_POST['estado']);
+			$lat = addslashes($_POST['lat']);
+			$lng = addslashes($_POST['lng']);
+			$descricao = addslashes($_POST['descricao']);
 
-	if ($dao->editar($denuncia)) {
-		header("Location: ../views/consultarDenuncias.php");
-	} else {
-		echo 'Erro ao editar denúncia';
+			if ($denuncia->adicionar($nomeRua, $numero, $cep, $bairro, $cidade, $estado, $lat, $lng, $descricao)) {
+				$_SESSION['msg'] = "Cadastro efetuado.";
+			} else {
+				echo 'Erro ao adicionar denúncia';
+			}
+		}
+
+		$this->loadTemplate('registrarDenuncia', $dados);
 	}
-	
-}
 
-function excluir() {
-	$db = new Database();
-	$dao = new DenunciaDAO($db);
+	public function consultarDenuncias() {
+		$dados = array();
 
-	$denuncia = new Denuncia();
+		$d = new Denuncia();
 
-	$denuncia->setId($_POST['id']);
+		$denuncias = $d->getAll();
 
-	if ($dao->excluir($denuncia)) {
-		header("Location: ../views/consultarDenuncias.php");
-	} else {
-		echo 'Erro ao excluir denúncia';
+		$dados['denuncias'] = $denuncias;
+
+		$this->loadTemplate('consultarDenuncias', $dados);
 	}
+
+	public function editar($id) {
+		$dados = array();
+
+		$d = new Denuncia();
+
+		$denuncia = $d->getDenunciaById($id);
+
+		$dados['denuncia'] = $denuncia;
+
+		if (isset($_POST['nomeRua']) && !empty($_POST['nomeRua'])) {
+			$nomeRua = addslashes($_POST['nomeRua']);
+			$numero = addslashes($_POST['numero']);
+			$cep = addslashes($_POST['cep']);
+			$bairro = addslashes($_POST['bairro']);
+			$cidade = addslashes($_POST['cidade']);
+			$estado = addslashes($_POST['estado']);
+			$lat = addslashes($_POST['lat']);
+			$lng = addslashes($_POST['lng']);
+			$descricao = addslashes($_POST['descricao']);
+
+			if ($d->editar($nomeRua, $numero, $cep, $bairro, $cidade, $estado, $lat, $lng, $descricao, $id)) {
+				$_SESSION['msg'] = "Cadastro efetuado.";
+				header("Location: ".BASE_URL."denuncia/consultarDenuncias");
+			} else {
+				echo 'Erro ao editar denúncia';
+			}
+		}
+
+		$this->loadTemplate('editarDenuncia', $dados);
+		
+	}
+
+	public function excluir($id) {
+		$d = new Denuncia();
+
+		if ($d->excluir($id)) {
+			header("Location: ".BASE_URL."denuncia/consultarDenuncias");
+		} else {
+			echo 'Erro ao excluir denúncia';
+		}
+	}
+
 }
-?>
