@@ -29,12 +29,11 @@ class Core {
 				$params = $url;
 			}
 		} else {
-			$currentController = 'homeController';
+			$currentController = 'HomeController';
 			$currentAction = 'index';
 		}
 
 		$c = new $currentController();
-
 		call_user_func_array(array($c, $currentAction), $params);
 
 	}

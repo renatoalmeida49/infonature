@@ -1,5 +1,10 @@
 <?php
-class denunciaController extends controller {
+class DenunciaController extends Controller {
+
+	public function __construct() {
+		parent::__construct();
+	}
+
 	public function index() {
 		echo "denunciaController index";
 	}
@@ -8,19 +13,20 @@ class denunciaController extends controller {
 		$dados = array();
 
 		$denuncia = new Denuncia();
+		$dao = new DenunciaDAO();
 
 		if (isset($_POST['nomeRua']) && !empty($_POST['nomeRua'])) {
-			$nomeRua = addslashes($_POST['nomeRua']);
-			$numero = addslashes($_POST['numero']);
-			$cep = addslashes($_POST['cep']);
-			$bairro = addslashes($_POST['bairro']);
-			$cidade = addslashes($_POST['cidade']);
-			$estado = addslashes($_POST['estado']);
-			$lat = addslashes($_POST['lat']);
-			$lng = addslashes($_POST['lng']);
-			$descricao = addslashes($_POST['descricao']);
+			$denuncia->setNomeRua(addslashes($_POST['nomeRua']));
+			$denuncia->setNumero(addslashes($_POST['numero']));
+			$denuncia->setCep(addslashes($_POST['cep']));
+			$denuncia->setBairro(addslashes($_POST['bairro']));
+			$denuncia->setCidade(addslashes($_POST['cidade']));
+			$denuncia->setEstado(addslashes($_POST['estado']));
+			$denuncia->setLat(addslashes($_POST['lat']));
+			$denuncia->setLng(addslashes($_POST['lng']));
+			$denuncia->setDescricao(addslashes($_POST['descricao']));
 
-			if ($denuncia->adicionar($nomeRua, $numero, $cep, $bairro, $cidade, $estado, $lat, $lng, $descricao)) {
+			if ($dao->adicionar($denuncia)) {
 				$_SESSION['msg'] = "Cadastro efetuado.";
 			} else {
 				echo 'Erro ao adicionar denúncia';
@@ -32,10 +38,11 @@ class denunciaController extends controller {
 
 	public function consultarDenuncias() {
 		$dados = array();
+		$denuncias = array();
 
-		$d = new Denuncia();
+		$dao = new DenunciaDAO();
 
-		$denuncias = $d->getAll();
+		$denuncias = $dao->getAll();
 
 		$dados['denuncias'] = $denuncias;
 
@@ -45,24 +52,26 @@ class denunciaController extends controller {
 	public function editar($id) {
 		$dados = array();
 
-		$d = new Denuncia();
+		$denuncia = new Denuncia();
+		$dao = new DenunciaDAO();
 
-		$denuncia = $d->getDenunciaById($id);
+		$d = $dao->getDenunciaById($id);
 
-		$dados['denuncia'] = $denuncia;
+		$dados['denuncia'] = $d;
 
 		if (isset($_POST['nomeRua']) && !empty($_POST['nomeRua'])) {
-			$nomeRua = addslashes($_POST['nomeRua']);
-			$numero = addslashes($_POST['numero']);
-			$cep = addslashes($_POST['cep']);
-			$bairro = addslashes($_POST['bairro']);
-			$cidade = addslashes($_POST['cidade']);
-			$estado = addslashes($_POST['estado']);
-			$lat = addslashes($_POST['lat']);
-			$lng = addslashes($_POST['lng']);
-			$descricao = addslashes($_POST['descricao']);
+			$denuncia->setNomeRua(addslashes($_POST['nomeRua']));
+			$denuncia->setNumero(addslashes($_POST['numero']));
+			$denuncia->setCep(addslashes($_POST['cep']));
+			$denuncia->setBairro(addslashes($_POST['bairro']));
+			$denuncia->setCidade(addslashes($_POST['cidade']));
+			$denuncia->setEstado(addslashes($_POST['estado']));
+			$denuncia->setLat(addslashes($_POST['lat']));
+			$denuncia->setLng(addslashes($_POST['lng']));
+			$denuncia->setDescricao(addslashes($_POST['descricao']));
+			$denuncia->setId($id);
 
-			if ($d->editar($nomeRua, $numero, $cep, $bairro, $cidade, $estado, $lat, $lng, $descricao, $id)) {
+			if ($dao->editar($denuncia)) {
 				$_SESSION['msg'] = "Cadastro efetuado.";
 				header("Location: ".BASE_URL."denuncia/consultarDenuncias");
 			} else {
@@ -76,8 +85,11 @@ class denunciaController extends controller {
 
 	public function excluir($id) {
 		$d = new Denuncia();
+		$d->setId($id);
 
-		if ($d->excluir($id)) {
+		$dao = new DenunciaDAO();
+
+		if ($dao->excluir($d)) {
 			header("Location: ".BASE_URL."denuncia/consultarDenuncias");
 		} else {
 			echo 'Erro ao excluir denúncia';

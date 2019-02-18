@@ -1,6 +1,7 @@
 <?php
 require 'environment.php';
 
+global $config;
 $config = array();
 
 if (ENVIRONMENT == 'development') {
@@ -15,12 +16,4 @@ if (ENVIRONMENT == 'development') {
 	$config['host'] = 'locahost';
 	$config['dbuser'] = 'root';
 	$config['dbpass'] = '';
-}
-
-global $db;
-
-try {
-	$db = new PDO("mysql:dbname=".$config['dbname'].";host=".$config['host'], $config['dbuser'], $config['dbpass']);
-} catch (PDOException $e) {
-	echo "ERRO: ".$e->getMessage();
 }
