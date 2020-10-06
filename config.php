@@ -7,8 +7,8 @@ $config = array();
 if (ENVIRONMENT == 'development') {
 	define("BASE_URL", 'http://localhost/infonature/');
 	$config['dbname'] = 'infonature';
-	$config['host'] = 'localhost';
-	$config['dbuser'] = 'root';
+	$config['host'] = 'developer';
+	$config['dbuser'] = 'developer';
 	$config['dbpass'] = '';
 } else {
 	define("BASE_URL", 'http://infonature.com.br/');
